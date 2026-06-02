@@ -9,16 +9,32 @@
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        map<ListNode* , bool> collect;
-        ListNode* temp = head;
-        while(temp != NULL){
-            if(collect[temp]==true) return temp;
-            else{
-                collect[temp]=true;
-                temp= temp->next;
+        ListNode * fast = head;
+        ListNode * slow = head;
+        bool flag = false;
+        ListNode * idx;
+        while(fast != NULL && fast->next != NULL ){
+            fast = fast->next->next;
+            slow = slow->next;
+            if(fast == slow){
+                idx = fast;
+                flag= true;
+                break;
             }
         }
-        return NULL;
+        if(flag==true){
+            slow = head;
+            fast = idx;
+            while(slow != fast){
+                slow = slow->next;
+                fast = fast->next;
+            }
+            return slow;
+        }
+        else{
+            return NULL;
+        }
+
         
     }
 };
