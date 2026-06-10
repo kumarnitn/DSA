@@ -1,22 +1,13 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        int n = nums.size();
-        int current  = 0;
         int unique = 0;
-        while(current<n){
-            while( current <n && nums[current] == nums[unique]){// here condition also can be for this question nums[current] == nums[unique]
-                current++;
-            }
-            if(current>=n)  return unique+1;
-            else{
+        for(int current=1 ; current < nums.size();current++){
+            if(nums[unique]!=nums[current]){
                 unique++;
-                int temp = nums[current];
-                nums[current] = nums[unique];
-                nums[unique]= temp;
-                current++;
+                nums[unique]=nums[current];
             }
         }
-        return unique+1 ;
+        return unique+1;
     }
-};
+    };
